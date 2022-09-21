@@ -1,11 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
+.bg-inherited{ background:inherit}
 body,
 html {
+  box-sizing:border-box;
   height: 100%;
   background-color: #1a1a1a;
   font-family: 'Inter';

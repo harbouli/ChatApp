@@ -1,11 +1,17 @@
+import { ErrorMessage, useField } from 'formik'
 import React from 'react'
 
-function Input ( { label, name, ...props }: any )
+function Input ( { label, ...props }: any )
 {
+    const [ field, meta ] = useField( props )
     return (
-        <div className="bg-DARK py-3 px-4 my-1 rounded-xl w-full">
-            <label htmlFor={ name } className="text-gray block text-sm my-1 ">{ label }</label>
-            <input type={ name } id={ name } className="outline-none border-none bg-inherited text-lg w-full p-0 " />
+        <div className={ `bg-DARK py-3 px-4 my-1 rounded-xl w-full ${ meta.error && meta.touched && 'border-2 border-red ' }` }>
+            <div className="flex justify-between">
+                <label htmlFor={ field.name } className="text-gray block text-sm my-1 ">{ label }</label>
+                <ErrorMessage name={ field.name } render={ msg => <p className='text-red text-xs'>{ msg }</p> } />
+
+            </div>
+            <input { ...props } { ...field } autoComplete="none" className="outline-none border-none bg-inherited text-lg w-full p-0 " />
         </div>
     )
 }

@@ -4,16 +4,18 @@ import { Button } from './Button'
 import { Link } from 'react-router-dom'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik';
+import { RegisterParameters } from '../../utils/types'
+import { postRegister } from '../../utils/api'
 
 
 function RegisterForm ()
 {
 
     const validation = Yup.object( {
-        firstname: Yup.string()
+        firstName: Yup.string()
             .required( 'Required' )
             .max( 15, 'Please Enter Less Than 15 Character In Your First Name' ),
-        lastname: Yup.string()
+        lastName: Yup.string()
             .required( 'Required' )
             .max( 20, 'Please Enter Less Than 20 Character In Your Last Name' ),
         email: Yup.string()
@@ -31,15 +33,23 @@ function RegisterForm ()
     return (
         <Formik
             initialValues={ {
-                firstname: '',
-                lastname: '',
+                firstName: '',
+                lastName: '',
                 email: '',
                 password: '',
             } }
             validationSchema={ validation }
-            onSubmit={ ( values: object ) =>
+            onSubmit={ async ( values: RegisterParameters ) =>
             {
-                console.log( values );
+                try
+                {
+                    console.log( values )
+                    await postRegister( values )
+                } catch ( error )
+                {
+                    console.log( error );
+                }
+
 
             } }
         >
@@ -47,8 +57,8 @@ function RegisterForm ()
                 <Form className="max-w-4xl w-200" >
                     <Input label="Email" name="email" />
                     <section className='flex gap-2 mt-2 justify-between'>
-                        <Input label="First Name" name="firstname" type="text" />
-                        <Input label="Last Name" name="lastname" type="text" />
+                        <Input label="First Name" name="firstName" type="text" />
+                        <Input label="Last Name" name="lastName" type="text" />
                     </section>
                     <Input label="Password" name="password" type="password" />
 

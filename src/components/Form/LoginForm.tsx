@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom'
 import { Button } from './Button'
 import Input from './Input'
 import * as Yup from 'yup'
-import { ErrorMessage, Form, Formik, useField } from 'formik'
+import { Form, Formik } from 'formik'
+import { postLogin } from '../../utils/api'
+import { LoginParameters } from '../../utils/types'
 
 
 function LoginForm ()
@@ -25,23 +27,31 @@ function LoginForm ()
             password: '',
         } }
             validationSchema={ validation }
-            onSubmit={ ( values: object ) =>
+            onSubmit={ async ( values: LoginParameters ) =>
             {
                 console.log( values );
+                try
+                {
+                    await postLogin( values )
+                } catch ( err )
+                {
+                    console.log( err );
+                }
 
             } }>
-            <Form className="w-200" onSubmit={ onSubmit }>
-                <Input label="Email" name="email" type="text" />
-                <Input label="Password" name="password" type="password" />
-                <Button title="Login" />
-                <div className='flex justify-center mt-2'>
-                    <span>Don't have an account? </span>
-                    <Link to="/" className=" no-underline">
-                        <span className="font-bold"> Register</span>
-                    </Link>
-                </div>
+            { ( form ) =>
+                <Form className="w-200" onSubmit={ onSubmit }>
+                    <Input label="Email" name="email" type="text" />
+                    <Input label="Password" name="password" type="password" />
+                    <Button title="Login" type="submit" onClick={ () => form.handleSubmit() } />
+                    <div className='flex justify-center mt-2'>
+                        <span>Don't have an account? </span>
+                        <Link to="/signup" className=" no-underline">
+                            <span className="font-bold"> Register</span>
+                        </Link>
+                    </div>
 
-            </Form >
+                </Form > }
         </Formik>
     )
 }

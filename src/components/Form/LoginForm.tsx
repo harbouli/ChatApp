@@ -1,15 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { Button } from './Button'
 import Input from './Input'
 import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { postLogin } from '../../utils/api'
 import { LoginParameters } from '../../utils/types'
+import Lottie from 'react-lottie';
+import * as Loading from '../../utils/lotties/Loading.json'
 
 
 function LoginForm ()
 {
+    const defaultOptions = {
+        loop: true,
+        autoplay: true,
+        animationData: Loading,
+
+    };
+    const navigate = useNavigate()
+    const [ loading, setLoading ] = useState( false )
     const validation = Yup.object( {
 
         email: Yup.string()
@@ -27,12 +37,14 @@ function LoginForm ()
             password: '',
         } }
             validationSchema={ validation }
-            onSubmit={ async ( values: LoginParameters ) =>
+            onSubmit={ ( values: LoginParameters ) =>
             {
-                console.log( values );
                 try
                 {
-                    await postLogin( values )
+                    setLoading( true );
+                    postLogin( values )
+                    navigate( '/conversations' )
+                    setLoading( false );
                 } catch ( err )
                 {
                     console.log( err );
@@ -43,7 +55,11 @@ function LoginForm ()
                 <Form className="w-200" onSubmit={ onSubmit }>
                     <Input label="Email" name="email" type="text" />
                     <Input label="Password" name="password" type="password" />
-                    <Button title="Login" type="submit" onClick={ () => form.handleSubmit() } />
+                    { loading ? <Lottie options={ defaultOptions }
+                        height={ 50 }
+                        width={ 50 }
+                    /> : <Button title='Login' type="submit" onClick={ () => form.handleSubmit() } /> }
+
                     <div className='flex justify-center mt-2'>
                         <span>Don't have an account? </span>
                         <Link to="/signup" className=" no-underline">

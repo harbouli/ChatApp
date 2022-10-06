@@ -1,7 +1,7 @@
 import { ErrorMessage, useField } from 'formik'
 import React from 'react'
 
-function Input ( { label, ...props }: any )
+function TextArea ( { label, ...props }: any )
 {
     const [ field, meta ] = useField( props )
     return (
@@ -11,9 +11,9 @@ function Input ( { label, ...props }: any )
                 <ErrorMessage name={ field.name } render={ msg => <p className='text-red text-xs'>{ msg }</p> } />
 
             </div>
-            <input { ...props } { ...field } autoComplete="off" className="outline-none border-none bg-inherited text-lg w-full p-0 " />
+            <textarea  { ...props } { ...field } autoComplete="none" className="resize-none scroller outline-none border-none bg-inherited text-xs w-full p-0 " />
         </div>
     )
 }
 
-export default Input
+export default TextArea

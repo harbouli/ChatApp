@@ -30,7 +30,6 @@ function LoginForm ()
             .min( 8, 'Password Must Contain At Least 8 Characters,' )
 
     } )
-    const onSubmit = ( event: React.FormEvent<HTMLFormElement> ) => event.preventDefault()
     return (
         <Formik initialValues={ {
             email: '',
@@ -52,7 +51,7 @@ function LoginForm ()
 
             } }>
             { ( form ) =>
-                <Form className="w-200" onSubmit={ onSubmit }>
+                <Form className="w-200" >
                     <Input label="Email" name="email" type="text" />
                     <Input label="Password" name="password" type="password" />
                     { loading ? <Lottie options={ defaultOptions }

@@ -1,8 +1,9 @@
 import {useEffect, useState} from "react";
 import {getAuthUser} from "../api";
+import {User} from "../types";
 
 export const useAuth = () => {
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<User | undefined>();
   const [loading, setLoading] = useState(true);
   const controller = new AbortController();
   useEffect(() => {

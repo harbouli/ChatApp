@@ -1,20 +1,39 @@
-import React from 'react'
-interface ChanneIteam
-{
-    name: string,
-    lastMessage: string
-    id: number
+import React, { FC, useState, useEffect } from 'react'
+import { Conversation, User } from '../../utils/types'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store'
 
+
+type Props = {
+    conversation: Conversation
 }
 
-function ChanneIteam ( { iteam }: any )
+const ChanneIteam: FC<Props> = ( { conversation } ) =>
 {
+    const [ userSender, setUserSender ] = useState<User>( {
+        firstName: '',
+        lastName: '',
+        email: '',
+        id: 0
+    } )
+    const { user } = useSelector( ( state: RootState ) => state )
+
+    useEffect( () =>
+    {
+        return () =>
+        {
+            user.user.id === conversation.creator.id ? setUserSender( conversation.recipient ) : setUserSender( conversation.creator )
+
+        }
+    }, [] )
+
+
     return (
         <div className=" flex items-center py-4 px-3 gap-5 bg-DARK hover:bg-[#3d3d3d67] border-b-[#96969632] border-solid border-b-[1px]">
             <div className=" w-8 h-8 bg-blue rounded-full " />
             <div>
-                <p className="font-semibold">{ iteam.name }</p>
-                <p className=" text-xs opacity-75">{ iteam.lastMessage }</p>
+                <p className="font-semibold">{ `${ userSender.firstName } ${ userSender.lastName }` }</p>
+                <p className=" text-xs opacity-75">hello</p>
             </div>
         </div>
     )

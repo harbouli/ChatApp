@@ -3,7 +3,6 @@ import SideBar from '../../components/conversation/SideBar'
 import { Outlet, useParams } from 'react-router-dom'
 import ConvresationPanel from './ConvresationPanel';
 import { useDispatch } from 'react-redux';
-import { Conversation } from '../../utils/types';
 import { AppDispatch } from '../../store';
 import { fetchConversationsThunk } from '../../store/conversations/conversationThunk';
 
@@ -18,7 +17,7 @@ function ConversationPage ()
 
     return (
         <div className="flex overflow-y-hidden">
-            <SideBar conversations={ [] } />
+            <SideBar />
             { !id && <ConvresationPanel /> }
             <Outlet />
         </div>

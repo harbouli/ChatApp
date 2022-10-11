@@ -11,3 +11,6 @@ export const postLogin = (data: LoginParameters) =>
 
 export const getAuthUser = () =>
   axios.get(`${REACT_APP_API_HOSTNAME}/auth/status`, config);
+
+export const getConversations = () =>
+  axios.get(`${REACT_APP_API_HOSTNAME}/conversations`, config);

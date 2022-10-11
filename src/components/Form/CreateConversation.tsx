@@ -1,12 +1,16 @@
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
-import React from 'react'
+import React, { FC } from 'react'
 import Input from './Input';
 import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import TextArea from './TextArea';
+import { MdClose } from 'react-icons/md';
 
-const CreateConversation = () =>
+type Props = {
+    toggleModel: () => void;
+}
+const CreateConversation: FC<Props> = ( { toggleModel } ) =>
 {
     const validation = Yup.object( {
 
@@ -24,20 +28,21 @@ const CreateConversation = () =>
                 description: '',
             } }
                 validationSchema={ validation }
-                onSubmit={ ( values ) =>
+                onSubmit={ async ( values ) =>
                 {
 
                 } }>
                 { ( form ) =>
                     <Form className="w-[700px] bg-gray-dark rounded-xl z-10" >
 
-                        <div className="p-6 border-b-[1px] border-b-[#fbfbfb52]">
+                        <div className="p-6 border-b-[1px] border-b-[#fbfbfb52] flex justify-between items-center">
                             <h1 className='text-2xl font-bold '>Create Conversion</h1>
+                            <MdClose size={ 25 } className='cursor-pointer' onClick={ toggleModel } />
                         </div>
                         <div className='px-6 my-5'>
-                            <Input name="name" type="text" />
+                            <Input placeholder='Recipient' name="name" type="text" />
                             <div className='h-2' />
-                            <TextArea rows="8" cols="50" name="description" />
+                            <TextArea placeholder="Message (Option)" rows="8" cols="50" name="description" />
                             <Button title='Submit' type="submit" onClick={ () => form.handleSubmit() } />
                         </div>
                     </Form >

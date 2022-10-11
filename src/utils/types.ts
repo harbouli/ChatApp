@@ -11,8 +11,21 @@ export type LoginParameters = {
 
 export type User = {
   id: number;
-  username: string;
   email: string;
   firstName: string;
   lastName: string;
+};
+
+export type AuthUser = {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  isAuth: boolean;
+};
+
+export type Conversation = {
+  id: number;
+  creator: User;
+  recipient: User;
 };

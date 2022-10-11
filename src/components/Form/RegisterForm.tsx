@@ -43,7 +43,6 @@ function RegisterForm ()
             {
                 try
                 {
-                    console.log( values )
                     await postRegister( values )
                 } catch ( error )
                 {

@@ -36,12 +36,12 @@ function LoginForm ()
             password: '',
         } }
             validationSchema={ validation }
-            onSubmit={ ( values: LoginParameters ) =>
+            onSubmit={ async ( values: LoginParameters ) =>
             {
                 try
                 {
                     setLoading( true );
-                    postLogin( values )
+                    await postLogin( values )
                     navigate( '/conversations' )
                     setLoading( false );
                 } catch ( err )

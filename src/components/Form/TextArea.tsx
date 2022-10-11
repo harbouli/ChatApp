@@ -11,7 +11,7 @@ function TextArea ( { label, ...props }: any )
                 <ErrorMessage name={ field.name } render={ msg => <p className='text-red text-xs'>{ msg }</p> } />
 
             </div>
-            <textarea  { ...props } { ...field } autoComplete="none" className="resize-none scroller outline-none border-none bg-inherited text-xs w-full p-0 " />
+            <textarea  { ...props } { ...field } autoComplete="none" className="resize-none scroller outline-none border-none bg-inherited text-lg w-full p-0 " />
         </div>
     )
 }

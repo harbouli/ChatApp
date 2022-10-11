@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, FC } from 'react'
+import { Conversation } from '../../utils/types'
 import CreateConversationModal from '../models/CreateConversationModal'
 import OverLay from '../models/OverLay'
 import ChanneIteam from './ChanneIteam'
 import CreateConversationButton from './CreateConversationButton'
-function SideBar ()
+
+
+type Props = {
+    conversations: Conversation[] | undefined
+}
+const SideBar: FC<Props> = ( { conversations } ) =>
 {
     const [ showModel, setShowModal ] = useState( false )
 
@@ -16,7 +22,7 @@ function SideBar ()
                     <CreateConversationButton className=' cursor-pointer' showModel={ () => { setShowModal( !showModel ) } } />
                 </header>
                 <div className='scroller overflow-y-scroll h-full '>
-                    { [].map( ( iteam, i ) => <ChanneIteam key={ i } iteam={ iteam } /> ) }
+                    { conversations?.map( ( iteam, i ) => <ChanneIteam key={ i } iteam={ iteam } /> ) }
                 </div>
             </aside>
         </>

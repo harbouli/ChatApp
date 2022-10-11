@@ -8,23 +8,11 @@ import {User} from "../types";
 
 export const useAuth = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const [user, setUser] = useState<User | undefined>();
-  const [loading, setLoading] = useState(true);
   const controller = new AbortController();
   const {user: userState} = useSelector((state: RootState) => state);
   useEffect(() => {
     dispatch(fetchAuthUserThunk());
-    getAuthUser()
-      .then(({data}) => {
-        setLoading(false);
-        setUser(data);
-      })
-      .catch((e) => {
-        setLoading(false);
-        console.log(e);
-      });
 
     return () => controller.abort();
   }, []);
-  return {user, loading};
 };

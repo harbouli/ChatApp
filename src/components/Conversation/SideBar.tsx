@@ -1,9 +1,10 @@
 import React, { useState, FC } from 'react'
 import { Conversation } from '../../utils/types'
 import CreateConversationModal from '../models/CreateConversationModal'
-import OverLay from '../models/OverLay'
+
 import ChanneIteam from './ChanneIteam'
 import CreateConversationButton from './CreateConversationButton'
+
 
 
 type Props = {

@@ -15,7 +15,7 @@ const initialState: userStore = {
     firstName: "",
     lastName: "",
   },
-  isAuth: false,
+  isAuth: true,
   loading: false,
 };
 
@@ -29,7 +29,6 @@ export const userSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    console.log("OK");
     builder
       .addCase(fetchAuthUserThunk.pending, (state) => {
         state.loading = true;

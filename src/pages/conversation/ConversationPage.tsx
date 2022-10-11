@@ -2,23 +2,23 @@ import React, { useEffect, useState } from 'react'
 import SideBar from '../../components/conversation/SideBar'
 import { Outlet, useParams } from 'react-router-dom'
 import ConvresationPanel from './ConvresationPanel';
-import { getConversations } from '../../utils/api';
+import { useDispatch } from 'react-redux';
 import { Conversation } from '../../utils/types';
+import { AppDispatch } from '../../store';
+import { fetchConversationsThunk } from '../../store/conversations/conversationThunk';
 
 function ConversationPage ()
 {
     const { id } = useParams();
-    const [ conversation, setConversations ] = useState<Conversation[]>()
+    const dispatch = useDispatch<AppDispatch>()
     useEffect( () =>
     {
-        getConversations().then( ( { data } ) => setConversations( data ) ).catch( ( err ) => console.log( err ) )
-
-
+        dispatch( fetchConversationsThunk() )
     }, [] )
 
     return (
         <div className="flex overflow-y-hidden">
-            <SideBar conversations={ conversation } />
+            <SideBar conversations={ [] } />
             { !id && <ConvresationPanel /> }
             <Outlet />
         </div>

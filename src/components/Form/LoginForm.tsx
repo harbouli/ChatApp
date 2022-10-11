@@ -6,8 +6,8 @@ import * as Yup from 'yup'
 import { Form, Formik } from 'formik'
 import { postLogin } from '../../utils/api'
 import { LoginParameters } from '../../utils/types'
-import Lottie from 'react-lottie';
 import * as Loading from '../../utils/lotties/Loading.json'
+import { getAuthUser } from '../../utils/api'
 
 
 function LoginForm ()
@@ -19,7 +19,6 @@ function LoginForm ()
 
     };
     const navigate = useNavigate()
-    const [ loading, setLoading ] = useState( false )
     const validation = Yup.object( {
 
         email: Yup.string()
@@ -40,10 +39,9 @@ function LoginForm ()
             {
                 try
                 {
-                    setLoading( true );
                     await postLogin( values )
+                    await getAuthUser()
                     navigate( '/conversations' )
-                    setLoading( false );
                 } catch ( err )
                 {
                     console.log( err );
@@ -54,10 +52,7 @@ function LoginForm ()
                 <Form className="w-200" >
                     <Input label="Email" name="email" type="text" />
                     <Input label="Password" name="password" type="password" />
-                    { loading ? <Lottie options={ defaultOptions }
-                        height={ 50 }
-                        width={ 50 }
-                    /> : <Button title='Login' type="submit" onClick={ () => form.handleSubmit() } /> }
+                    <Button title='Login' type="submit" onClick={ () => form.handleSubmit() } />
 
                     <div className='flex justify-center mt-2'>
                         <span>Don't have an account? </span>

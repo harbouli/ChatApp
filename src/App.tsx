@@ -1,13 +1,14 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
-
+import { useSelector } from 'react-redux'
 import AuthenticationPage from './pages/AuthenticationPage';
 import ConversationChannelPage from './pages/conversation/ConversationChannelPage';
 import ConversationPage from './pages/conversation/ConversationPage';
 import LoginPage from './pages/LoginPage';
 import { useAuth } from './utils/hooks/useAuth';
 import * as Loading from './utils/lotties/Loading.json'
+import { RootState } from './store';
 
 function App ()
 {
@@ -39,7 +40,8 @@ type Props = {
 
 const RequiredAuth: React.FC<Props> = ( { children } ) =>
 {
-  const { user, loading } = useAuth()
+  useAuth()
+  const { loading, isAuth } = useSelector( ( state: RootState ) => state.user )
   const location = useLocation();
   const defaultOptions = {
     loop: true,
@@ -57,7 +59,7 @@ const RequiredAuth: React.FC<Props> = ( { children } ) =>
     /></div>
   } else
   {
-    if ( !user ) return <Navigate to='/login' state={ { from: location } } replace />;
+    if ( !isAuth ) return <Navigate to='/login' state={ { from: location } } replace />;
 
     return <>{ children }</>
 

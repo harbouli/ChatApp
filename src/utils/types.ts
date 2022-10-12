@@ -33,4 +33,5 @@ export type Message = {
   id: number;
   content: string;
   author: User;
+  createdAt: string;
 };

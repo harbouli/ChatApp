@@ -14,3 +14,6 @@ export const getAuthUser = () =>
 
 export const getConversations = () =>
   axios.get(`${REACT_APP_API_HOSTNAME}/conversations`, config);
+
+export const getMessages = (id: number) =>
+  axios.get(`${REACT_APP_API_HOSTNAME}/messages/${id}`, config);

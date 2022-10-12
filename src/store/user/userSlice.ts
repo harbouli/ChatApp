@@ -27,6 +27,9 @@ export const userSlice = createSlice({
     setLoading: (state, action: PayloadAction<boolean>) => {
       state.loading = action.payload;
     },
+    setAuth: (state, action: PayloadAction<boolean>) => {
+      state.isAuth = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -34,7 +37,6 @@ export const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(fetchAuthUserThunk.fulfilled, (state, action) => {
-        delete action.payload.data?.password;
         state.user = action.payload.data;
         state.loading = false;
         state.isAuth = true;

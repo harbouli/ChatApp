@@ -3,7 +3,7 @@ import React from 'react'
 function TopBar ()
 {
     return (
-        <div>TopBar</div>
+        <div className='text-2xl font-bold h-11 justify-center'>Mohamed Harbouli</div>
     )
 }
 

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchMessagesThunk } from '../../store/messages/messagesThunk';
 import ConversationContainer from '../../components/conversation/ConversationContainer';
 import MessageInputField from '../../components/messages/MessageInputField';
+import TopBar from '../../components/conversation/TopBar';
 
 function ConversationChannelPage ()
 {
@@ -14,8 +15,10 @@ function ConversationChannelPage ()
     {
         dispatch( fetchMessagesThunk( parseInt( id! ) ) )
     }, [ id ] )
+
     return (
         <div className="flex flex-col w-full px-3 py-4 h-screen gap-3">
+            <TopBar />
             <ConversationContainer />
             <MessageInputField fullName='Mohamed Harbouli' />
         </div>

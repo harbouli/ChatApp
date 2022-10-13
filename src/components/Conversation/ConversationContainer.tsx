@@ -15,15 +15,15 @@ const ConversationContainer = () =>
 
 
   return (
-    <div className="h-full overflow-y-scroll scroller flex  flex-col-reverse gap-3">
+    <div className="h-full overflow-y-scroll scroller flex  flex-col-reverse gap-3 fade-indecator">
       { messages.messages.map( ( message, i, arr ) =>
       {
         const currentMessage = arr[ i ]
         const nextMessage = arr[ i + 1 ]
-        if ( arr.length != i + 1 )
+        if ( arr.length !== i + 1 )
         {
 
-          if ( user.user.id != message.author.id )
+          if ( user.user.id !== message.author.id )
           {
             if ( currentMessage.author.id !== nextMessage.author.id ) return <MessageContainer key={ message.id } sameAuthor={ true } message={ message } />
             return <MessageContainer key={ message.id } sameAuthor={ true } message={ message } />
@@ -31,14 +31,14 @@ const ConversationContainer = () =>
 
           else
           {
-            if ( currentMessage.author.id != nextMessage.author.id )
+            if ( currentMessage.author.id !== nextMessage.author.id )
               return <MessageSenderContainer key={ message.id } sameAuthor={ false } message={ message } />
 
             return <MessageSenderContainer key={ message.id } sameAuthor={ true } message={ message } />
           }
         } else
         {
-          if ( user.user.id != message.author.id )
+          if ( user.user.id !== message.author.id )
             return <MessageContainer key={ message.id } sameAuthor={ false } message={ message } />
 
           else return <MessageSenderContainer key={ message.id } sameAuthor={ false } message={ message } />

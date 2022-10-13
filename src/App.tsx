@@ -9,6 +9,7 @@ import LoginPage from './pages/LoginPage';
 import { useAuth } from './utils/hooks/useAuth';
 import * as Loading from './utils/lotties/Loading.json'
 import { RootState } from './store';
+import { Socket, SocketContext } from './utils/websocket/SocketStore';
 
 function App ()
 {
@@ -16,19 +17,22 @@ function App ()
 
   return (
 
-    <Routes>
-      <Route path="/signup" element={ <AuthenticationPage /> } />
-      <Route path="/login" element={ <LoginPage /> } />
-      <Route
-        path="conversations"
-        element={
-          <RequiredAuth>
-            <ConversationPage />
-          </RequiredAuth> }
-      >
-        <Route path=":id" element={ <ConversationChannelPage /> } />
-      </Route>
-    </Routes>
+    <SocketContext.Provider value={ Socket }>
+      <Routes>
+
+        <Route path="/signup" element={ <AuthenticationPage /> } />
+        <Route path="/login" element={ <LoginPage /> } />
+        <Route
+          path="conversations"
+          element={
+            <RequiredAuth>
+              <ConversationPage />
+            </RequiredAuth> }
+        >
+          <Route path=":id" element={ <ConversationChannelPage /> } />
+        </Route>
+      </Routes>
+    </SocketContext.Provider>
 
   );
 }

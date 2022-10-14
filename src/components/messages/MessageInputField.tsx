@@ -1,15 +1,14 @@
 import React, { FC, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useParams } from 'react-router-dom'
 import { RootState } from '../../store'
 import { createMessages } from '../../utils/api'
 
 type Props = {
-    fullName: string
+    fullName?: string
 }
-const MessageInputField: FC<Props> = ( { fullName } ) => 
+const MessageInputField: FC<Props> = () => 
 {
-    const { conversationId } = useSelector( ( state: RootState ) => state.messages )
+    const { conversationId, recipient } = useSelector( ( state: RootState ) => state.messages )
 
     const [ content, setContent ] = useState<string>( '' )
     const sendMessage = ( e: React.FocusEvent<HTMLFormElement> ) =>
@@ -20,6 +19,7 @@ const MessageInputField: FC<Props> = ( { fullName } ) =>
 
     }
 
+
     return (
         <form onSubmit={ sendMessage }>
             <input
@@ -29,7 +29,7 @@ const MessageInputField: FC<Props> = ( { fullName } ) =>
                     {
                         setContent( val.target.value )
                     }
-                } placeholder={ `Write a Message To  ${ fullName }` } className=" border-none bg-[#101010] outline-none w-full text-[#fff] p-4 px-2 rounded-lg" />
+                } placeholder={ `Write a Message To  ${ recipient }` } className=" border-none bg-[#101010] outline-none w-full text-[#fff] p-4 px-2 rounded-lg" />
         </form>
     )
 }

@@ -57,5 +57,6 @@ html {
 }
 
 .fade-indecator{
--webkit-mask-image:linear-gradient( to top, transparent 0%, #000 3%, #000 97%, transparent 100%);  
+-webkit-mask-image:linear-gradient( to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%); 
+padding: 10px 0; 
 }

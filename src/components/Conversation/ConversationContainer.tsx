@@ -24,7 +24,8 @@ const ConversationContainer = () =>
       const { conversation, ...message } = msg
       if ( conversation.id === messages.conversationId )
       {
-        dispatch( setMessage( [ message, ...messages.messages ] ) )
+        console.log( 'hello' );
+        dispatch( setMessage( message ) )
       }
     } )
     return () =>

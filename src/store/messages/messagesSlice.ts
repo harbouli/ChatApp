@@ -19,8 +19,8 @@ const messagesSlice = createSlice({
     setRecipient: (state, action: PayloadAction<string>) => {
       state.recipient = action.payload;
     },
-    setMessage: (state, action: PayloadAction<Message[]>) => {
-      state.messages = action.payload;
+    setMessage: (state, action: PayloadAction<Message>) => {
+      state.messages.unshift(action.payload);
     },
     setConversation: (state, action: PayloadAction<number>) => {
       state.conversationId = action.payload;

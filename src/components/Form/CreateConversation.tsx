@@ -22,7 +22,7 @@ const CreateConversation: FC<Props> = ( { toggleModel } ) =>
 
     } )
     return (
-        <div className="flex justify-center items-center h-screen absolute w-screen">
+        <div className="flex justify-center z-50 items-center h-screen absolute w-screen">
             <Formik initialValues={ {
                 name: '',
                 description: '',

@@ -1,16 +1,39 @@
-import React, { useEffect } from 'react'
-import { RootState } from '../../store'
-import { Message } from '../../utils/types'
-import { useSelector } from 'react-redux'
+import React, { useEffect, useContext } from 'react'
+import { AppDispatch, RootState } from '../../store'
+import { Message, MessageEventPayload } from '../../utils/types'
+import { useSelector, useDispatch } from 'react-redux'
 import MessageContainer from '../messages/MessageContainer'
 import MessageSenderContainer from '../messages/MessageSenderContainer'
+import { SocketContext } from '../../utils/websocket/SocketStore'
+import { setMessage } from '../../store/messages/messagesSlice'
 type Props = {
   messages: Message[]
 }
 
 const ConversationContainer = () =>
 {
+  const socket = useContext( SocketContext )
+  const dispatch = useDispatch<AppDispatch>()
   const { messages, user } = useSelector( ( state: RootState ) => state )
+  useEffect( () =>
+  {
+    socket.on( 'connected', () => console.log( 'Conncted' ) )
+    socket.on( 'onMessage', ( msg: MessageEventPayload ) =>
+    {
+      console.log( msg );
+      const { conversation, ...message } = msg
+      if ( conversation.id === messages.conversationId )
+      {
+        dispatch( setMessage( [ message, ...messages.messages ] ) )
+      }
+    } )
+    return () =>
+    {
+      socket.off( 'connect' )
+      socket.off( 'onMessage' )
+    }
+  }, [ messages.conversationId ] )
+
 
 
 
@@ -25,7 +48,7 @@ const ConversationContainer = () =>
 
           if ( user.user.id !== message.author.id )
           {
-            if ( currentMessage.author.id !== nextMessage.author.id ) return <MessageContainer key={ message.id } sameAuthor={ true } message={ message } />
+            if ( currentMessage.author.id !== nextMessage.author.id ) return <MessageContainer key={ message.id } sameAuthor={ false } message={ message } />
             return <MessageContainer key={ message.id } sameAuthor={ true } message={ message } />
           }
 

@@ -28,10 +28,24 @@ export type Conversation = {
   id: number;
   creator: User;
   recipient: User;
+  createdAt: Date;
 };
 export type Message = {
   id: number;
   content: string;
   author: User;
-  createdAt: string;
+  createdAt: Date;
+};
+
+export type MessageEventPayload = {
+  author: User;
+  content: string;
+  createdAt: Date;
+  id: number;
+  conversation: Conversation;
+};
+
+export type createMessage = {
+  content: string;
+  conversationId: number;
 };

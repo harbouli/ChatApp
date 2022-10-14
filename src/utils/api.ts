@@ -1,5 +1,10 @@
 import axios, {AxiosRequestConfig} from "axios";
-import {LoginParameters, RegisterParameters} from "./types";
+import {
+  createMessage,
+  LoginParameters,
+  Message,
+  RegisterParameters,
+} from "./types";
 const {REACT_APP_API_HOSTNAME} = process.env;
 
 const config: AxiosRequestConfig = {withCredentials: true};
@@ -17,3 +22,5 @@ export const getConversations = () =>
 
 export const getMessages = (id: number) =>
   axios.get(`${REACT_APP_API_HOSTNAME}/messages/${id}`, config);
+export const createMessages = (data: createMessage) =>
+  axios.post(`${REACT_APP_API_HOSTNAME}/messages`, data, config);

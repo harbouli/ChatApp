@@ -1,33 +1,24 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import SideBar from '../../components/conversation/SideBar'
 import { Outlet, useParams } from 'react-router-dom'
 import ConvresationPanel from './ConvresationPanel';
 import { useDispatch } from 'react-redux';
 import { AppDispatch } from '../../store';
 import { fetchConversationsThunk } from '../../store/conversations/conversationThunk';
-import { SocketContext } from '../../utils/websocket/SocketStore';
+import { setConversation } from '../../store/messages/messagesSlice';
+
 
 function ConversationPage ()
 {
-    const socket = useContext( SocketContext )
     const { id } = useParams();
     const dispatch = useDispatch<AppDispatch>()
-    useEffect( () =>
-    {
-        dispatch( fetchConversationsThunk() )
-    }, [] )
 
     useEffect( () =>
     {
-        socket.on( 'connected', () => console.log( 'Conncted' ) )
-        socket.on( 'onMessage', ( msg ) => console.log( msg ) )
         dispatch( fetchConversationsThunk() )
-        return () =>
-        {
-            socket.off( 'connect' )
-            socket.off( 'onMessage' )
-        }
-    }, [] )
+        dispatch( setConversation( parseInt( id! ) ) )
+    }, [ id ] )
+
 
     return (
         <div className="flex overflow-y-hidden">

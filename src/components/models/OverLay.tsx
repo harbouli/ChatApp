@@ -8,7 +8,7 @@ type Props = {
 const OverLay: FC<Props> = ( { toggleModel } ) =>
 {
     return (
-        <div onClick={ toggleModel } className='flex justify-center items-center fixed bg-[#000000b6] w-screen h-screen '></div>
+        <div onClick={ toggleModel } className='flex justify-center z-20 items-center fixed bg-[#000000b6] w-screen h-screen '></div>
     )
 }
 

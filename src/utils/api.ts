@@ -1,6 +1,8 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {
+  Conversation,
   createMessage,
+  fetchMessagePayload,
   LoginParameters,
   Message,
   RegisterParameters,
@@ -18,9 +20,12 @@ export const getAuthUser = () =>
   axios.get(`${REACT_APP_API_HOSTNAME}/auth/status`, config);
 
 export const getConversations = () =>
-  axios.get(`${REACT_APP_API_HOSTNAME}/conversations`, config);
+  axios.get<Conversation[]>(`${REACT_APP_API_HOSTNAME}/conversations`, config);
 
 export const getMessages = (id: number) =>
-  axios.get(`${REACT_APP_API_HOSTNAME}/messages/${id}`, config);
+  axios.get<fetchMessagePayload>(
+    `${REACT_APP_API_HOSTNAME}/messages/${id}`,
+    config
+  );
 export const createMessages = (data: createMessage) =>
   axios.post(`${REACT_APP_API_HOSTNAME}/messages`, data, config);

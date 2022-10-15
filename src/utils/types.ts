@@ -49,3 +49,7 @@ export type createMessage = {
   content: string;
   conversationId: number;
 };
+export type fetchMessagePayload = {
+  conversationId: number;
+  messages: Message[];
+};

@@ -22,17 +22,15 @@ const messagesSlice = createSlice({
     setMessage: (state, action: PayloadAction<Message>) => {
       state.messages.unshift(action.payload);
     },
-    setConversation: (state, action: PayloadAction<number>) => {
-      state.conversationId = action.payload;
-    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchMessagesThunk.fulfilled, (state, action) => {
-      state.messages = action.payload.data;
+      const {conversationId, messages} = action.payload.data;
+      state.messages = messages;
+      state.conversationId = conversationId;
     });
   },
 });
-export const {setRecipient, setMessage, setConversation} =
-  messagesSlice.actions;
+export const {setRecipient, setMessage} = messagesSlice.actions;
 
 export default messagesSlice.reducer;

@@ -15,6 +15,7 @@ const MessageInputField: FC<Props> = () =>
     {
         e.preventDefault()
         createMessages( { content, conversationId } )
+        console.log( conversationId );
         setContent( '' )
 
     }

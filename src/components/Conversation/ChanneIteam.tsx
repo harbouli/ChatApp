@@ -45,7 +45,7 @@ const ChanneIteam: FC<Props> = ( { conversation } ) =>
             <div className=" w-8 h-8 bg-blue rounded-full " />
             <div>
                 <p className="font-semibold">{ `${ userSender.firstName } ${ userSender.lastName }` }</p>
-                <p className=" text-xs opacity-75">hello</p>
+                <p className=" text-xs opacity-75">{ conversation.lastMessage?.content }</p>
             </div>
         </div>
     )

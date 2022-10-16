@@ -13,7 +13,17 @@ const initialState: AllConversations = {
 const conversationSlice = createSlice({
   name: "conversation",
   initialState,
-  reducers: {},
+  reducers: {
+    updateConversation: (state, action: PayloadAction<Conversation>) => {
+      const conversation = action.payload;
+
+      const index = state.conversations.findIndex(
+        (c) => c.id === conversation.id
+      );
+      state.conversations.splice(index, 1);
+      state.conversations.unshift(conversation);
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchConversationsThunk.fulfilled, (state, action) => {
       state.conversations = action.payload.data;
@@ -21,4 +31,5 @@ const conversationSlice = createSlice({
   },
 });
 
+export const {updateConversation} = conversationSlice.actions;
 export default conversationSlice.reducer;

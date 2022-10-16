@@ -6,6 +6,7 @@ import MessageContainer from '../messages/MessageContainer'
 import MessageSenderContainer from '../messages/MessageSenderContainer'
 import { SocketContext } from '../../utils/websocket/SocketStore'
 import { setMessage } from '../../store/messages/messagesSlice'
+import { updateConversation } from '../../store/conversations/conversationSlice'
 type Props = {
   messages: Message[]
 }
@@ -24,8 +25,9 @@ const ConversationContainer = () =>
       const { conversation, ...message } = msg
       if ( conversation.id === messages.conversationId )
       {
-        console.log( 'hello' );
+        console.log( conversation )
         dispatch( setMessage( message ) )
+        dispatch( updateConversation( conversation ) )
       }
     } )
     return () =>
@@ -49,23 +51,23 @@ const ConversationContainer = () =>
 
           if ( user.user.id !== message.author.id )
           {
-            if ( currentMessage.author.id !== nextMessage.author.id ) return <MessageContainer key={ message.id } sameAuthor={ false } message={ message } />
-            return <MessageContainer key={ message.id } sameAuthor={ true } message={ message } />
+            if ( currentMessage.author.id !== nextMessage.author.id ) return <MessageContainer key={ i } sameAuthor={ false } message={ message } />
+            return <MessageContainer key={ i } sameAuthor={ true } message={ message } />
           }
 
           else
           {
             if ( currentMessage.author.id !== nextMessage.author.id )
-              return <MessageSenderContainer key={ message.id } sameAuthor={ false } message={ message } />
+              return <MessageSenderContainer key={ i } sameAuthor={ false } message={ message } />
 
-            return <MessageSenderContainer key={ message.id } sameAuthor={ true } message={ message } />
+            return <MessageSenderContainer key={ i } sameAuthor={ true } message={ message } />
           }
         } else
         {
           if ( user.user.id !== message.author.id )
-            return <MessageContainer key={ message.id } sameAuthor={ false } message={ message } />
+            return <MessageContainer key={ i } sameAuthor={ false } message={ message } />
 
-          else return <MessageSenderContainer key={ message.id } sameAuthor={ false } message={ message } />
+          else return <MessageSenderContainer key={ i } sameAuthor={ false } message={ message } />
         }
 
 

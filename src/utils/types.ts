@@ -29,6 +29,7 @@ export type Conversation = {
   creator: User;
   recipient: User;
   createdAt: Date;
+  lastMessage: Message;
 };
 export type Message = {
   id: number;

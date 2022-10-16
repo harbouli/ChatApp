@@ -19,7 +19,7 @@ const MessageSenderContainer: FC<Props> = ( { message, sameAuthor } ) =>
                         <span className="font-bold text-sm">{ `${ message.author.firstName } ${ message.author.lastName } ` }</span>
                     </div> }
                 <div>
-                    <p className={ `text-center ${ sameAuthor && 'mr-10' } bg-blue px-4 py-2 rounded-full` }>{ message.content }</p>
+                    <p className={ `text-center ${ sameAuthor && 'mr-10' } bg-blue px-4 py-2 rounded-4xl breck-all` }>{ message.content }</p>
                 </div>
             </div>
             { !sameAuthor && <div className="h-8 w-8 bg-red rounded-full " /> }

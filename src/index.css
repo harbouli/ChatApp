@@ -56,6 +56,9 @@ html {
   border-radius: 20px;
 }
 
+.breck-all{
+  word-break: break-all;
+}
 .fade-indecator{
 -webkit-mask-image:linear-gradient( to bottom, transparent 0%, #000 3%, #000 97%, transparent 100%); 
 padding: 10px 0; 

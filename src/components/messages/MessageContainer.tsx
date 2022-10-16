@@ -18,7 +18,7 @@ const MessagesContainer: FC<Props> = ( { message, sameAuthor } ) =>
                         <span className="font-bold text-sm">{ `${ message.author.firstName } ${ message.author.lastName } ` }</span>
                         <span className=" text-xs text-gray-light">{ formatRelative( new Date( message.createdAt ), new Date() ) }</span>
                     </div> }
-                <p className={ `text-center ${ sameAuthor && 'ml-10' } bg-gray-dark px-4 py-2 rounded-full` }>{ message.content }</p>
+                <p className={ `text-center ${ sameAuthor && 'ml-10' } bg-gray-dark px-4 py-2 rounded-2xl break-words breck-all` }>{ message.content }</p>
             </div>
         </div>
     )

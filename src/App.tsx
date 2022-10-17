@@ -14,14 +14,17 @@ import { Socket, SocketContext } from './utils/websocket/SocketStore';
 function App ()
 {
 
+  const { isAuth } = useSelector( ( state: RootState ) => state.user )
+  const location = useLocation();
 
   return (
 
     <SocketContext.Provider value={ Socket }>
       <Routes>
 
-        <Route path="/signup" element={ <AuthenticationPage /> } />
-        <Route path="/login" element={ <LoginPage /> } />
+
+        <Route path="/signup" element={ !isAuth ? <AuthenticationPage /> : <Navigate to='/conversations' state={ { from: location } } replace /> } />
+        <Route path="/login" element={ !isAuth ? <LoginPage /> : <Navigate to='/conversations' state={ { from: location } } replace /> } />
         <Route
           path="conversations"
           element={

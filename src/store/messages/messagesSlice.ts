@@ -6,11 +6,13 @@ type Messages = {
   messages: Message[];
   recipient: string;
   conversationId: number;
+  isMessageLoading: boolean;
 };
 const initialState: Messages = {
   messages: [],
   recipient: "",
   conversationId: 0,
+  isMessageLoading: true,
 };
 const messagesSlice = createSlice({
   name: "messages",
@@ -24,11 +26,16 @@ const messagesSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchMessagesThunk.fulfilled, (state, action) => {
-      const {conversationId, messages} = action.payload.data;
-      state.messages = messages;
-      state.conversationId = conversationId;
-    });
+    builder
+      .addCase(fetchMessagesThunk.fulfilled, (state, action) => {
+        const {conversationId, messages} = action.payload.data;
+        state.messages = messages;
+        state.conversationId = conversationId;
+        state.isMessageLoading = false;
+      })
+      .addCase(fetchMessagesThunk.pending, (state) => {
+        state.isMessageLoading = true;
+      });
   },
 });
 export const {setRecipient, setMessage} = messagesSlice.actions;

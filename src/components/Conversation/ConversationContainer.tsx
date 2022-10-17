@@ -7,6 +7,7 @@ import MessageSenderContainer from '../messages/MessageSenderContainer'
 import { SocketContext } from '../../utils/websocket/SocketStore'
 import { setMessage } from '../../store/messages/messagesSlice'
 import { updateConversation } from '../../store/conversations/conversationSlice'
+import MessageSkeleton from '../skeleton/MessageSkeleton'
 type Props = {
   messages: Message[]
 }
@@ -40,8 +41,9 @@ const ConversationContainer = () =>
 
 
   return (
+
     <div className="h-full overflow-y-scroll scroller flex  flex-col-reverse gap-3 fade-indecator">
-      { messages.messages.map( ( message, i, arr ) =>
+      { messages.isMessageLoading ? <MessageSkeleton /> : messages.messages.map( ( message, i, arr ) =>
       {
         const currentMessage = arr[ i ]
         const nextMessage = arr[ i + 1 ]

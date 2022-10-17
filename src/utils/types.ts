@@ -54,3 +54,8 @@ export type fetchMessagePayload = {
   conversationId: number;
   messages: Message[];
 };
+
+export type CreateConversationParam = {
+  email: string;
+  message: string;
+};

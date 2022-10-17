@@ -1,10 +1,10 @@
 import axios, {AxiosRequestConfig} from "axios";
 import {
   Conversation,
+  CreateConversationParam,
   createMessage,
   fetchMessagePayload,
   LoginParameters,
-  Message,
   RegisterParameters,
 } from "./types";
 const {REACT_APP_API_HOSTNAME} = process.env;
@@ -29,3 +29,10 @@ export const getMessages = (id: number) =>
   );
 export const createMessages = (data: createMessage) =>
   axios.post(`${REACT_APP_API_HOSTNAME}/messages`, data, config);
+
+export const createConversation = (data: CreateConversationParam) =>
+  axios.post<Conversation>(
+    `${REACT_APP_API_HOSTNAME}/conversations`,
+    data,
+    config
+  );

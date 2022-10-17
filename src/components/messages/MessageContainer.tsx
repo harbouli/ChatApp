@@ -9,7 +9,7 @@ type Props = {
 const MessagesContainer: FC<Props> = ( { message, sameAuthor } ) =>
 {
     return (
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center -z-10">
             { !sameAuthor && <div className="h-8 w-8 bg-red rounded-full " /> }
 
             <div className='flex flex-col gap-1' >

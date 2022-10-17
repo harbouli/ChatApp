@@ -1,6 +1,9 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Conversation} from "../../utils/types";
-import {fetchConversationsThunk} from "./conversationThunk";
+import {
+  fetchConversationsThunk,
+  postCreateConversationsThunk,
+} from "./conversationThunk";
 
 type AllConversations = {
   conversations: Conversation[];
@@ -25,9 +28,13 @@ const conversationSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchConversationsThunk.fulfilled, (state, action) => {
-      state.conversations = action.payload.data;
-    });
+    builder
+      .addCase(fetchConversationsThunk.fulfilled, (state, action) => {
+        state.conversations = action.payload.data;
+      })
+      .addCase(postCreateConversationsThunk.fulfilled, (state, action) => {
+        state.conversations.unshift(action.payload.data);
+      });
   },
 });
 

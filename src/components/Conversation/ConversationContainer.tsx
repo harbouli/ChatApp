@@ -23,19 +23,18 @@ const ConversationContainer = () =>
     {
       console.log( msg );
       const { conversation, ...message } = msg
-      if ( conversation.id === messages.conversationId )
-      {
-        console.log( conversation )
-        dispatch( setMessage( message ) )
-        dispatch( updateConversation( conversation ) )
-      }
+
+      console.log( conversation )
+      dispatch( setMessage( message ) )
+      dispatch( updateConversation( conversation ) )
+
     } )
     return () =>
     {
       socket.off( 'connect' )
       socket.off( 'onMessage' )
     }
-  }, [ messages.conversationId ] )
+  }, [] )
 
 
 

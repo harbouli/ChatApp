@@ -6,31 +6,38 @@ import { Button } from './Button';
 import { Link } from 'react-router-dom';
 import TextArea from './TextArea';
 import { MdClose } from 'react-icons/md';
+import { CreateConversationParam } from '../../utils/types';
+import { postCreateConversationsThunk } from '../../store/conversations/conversationThunk';
+import { AppDispatch } from '../../store';
+import { useDispatch } from 'react-redux';
 
 type Props = {
     toggleModel: () => void;
 }
-const CreateConversation: FC<Props> = ( { toggleModel } ) =>
+const CreateConversationComponent: FC<Props> = ( { toggleModel } ) =>
 {
+
+    const dispatch = useDispatch<AppDispatch>()
     const validation = Yup.object( {
 
-        name: Yup.string()
+        email: Yup.string().email( 'test@example.com' )
             .required( 'Required' ).min( 3, 'Please Enter More than 3 Characters' ),
-        description: Yup.string()
+        message: Yup.string()
             .required( 'Required' )
-            .min( 8, 'Description Must Contain At Least 8 Characters,' )
+            .min( 8, 'message Must Contain At Least 8 Characters,' )
 
     } )
     return (
         <div className="flex justify-center z-50 items-center h-screen absolute w-screen">
             <Formik initialValues={ {
-                name: '',
-                description: '',
+                email: '',
+                message: '',
             } }
                 validationSchema={ validation }
-                onSubmit={ async ( values ) =>
+                onSubmit={ ( values: CreateConversationParam ) =>
                 {
-
+                    dispatch( postCreateConversationsThunk( values ) )
+                    toggleModel()
                 } }>
                 { ( form ) =>
                     <Form className="w-[700px] bg-gray-dark rounded-xl z-10" >
@@ -40,9 +47,9 @@ const CreateConversation: FC<Props> = ( { toggleModel } ) =>
                             <MdClose size={ 25 } className='cursor-pointer' onClick={ toggleModel } />
                         </div>
                         <div className='px-6 my-5'>
-                            <Input placeholder='Recipient' name="name" type="text" />
+                            <Input placeholder='Recipient Email' name="email" type="text" />
                             <div className='h-2' />
-                            <TextArea placeholder="Message (Option)" rows="8" cols="50" name="description" />
+                            <TextArea placeholder="Message (Option)" rows="8" cols="50" name="message" />
                             <Button title='Submit' type="submit" onClick={ () => form.handleSubmit() } />
                         </div>
                     </Form >
@@ -54,4 +61,4 @@ const CreateConversation: FC<Props> = ( { toggleModel } ) =>
     )
 }
 
-export default CreateConversation
+export default CreateConversationComponent
